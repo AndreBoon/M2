@@ -1,0 +1,33 @@
+---
+- name: Install Docker
+  shell: wget -qO- https://get.docker.com/ | sh
+
+- name: Prepare /etc/default/docker
+  template: src=docker.j2 dest=/etc/default/docker
+  notify:
+    - Restart docker
+
+- name: Gathering facts again
+  action: setup
+
+- name: Bind dnsmasq to localhost and docker bridge
+  lineinfile: dest=/etc/dnsmasq.conf state=present line="{{item}}"
+  with_items:
+   - "listen-address=127.0.0.1"
+   - "listen-address={{ ansible_docker0['ipv4']['address'] }}"
+
+- name: configure consul resolution dnsmasq
+  template:
+    src: consul.j2
+    dest: /etc/dnsmasq.d/consul
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart dnsmasq
+
+- name: make sure dnsmasq is running
+  service:
+    name: dnsmasq
+    state: started
+    enabled: yes

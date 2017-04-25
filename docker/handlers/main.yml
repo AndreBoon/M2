@@ -1,0 +1,6 @@
+---
+- name: Restart docker
+  service: name=docker state=restarted
+
+- name: Restart dnsmasq
+  service: name=dnsmasq state=restarted

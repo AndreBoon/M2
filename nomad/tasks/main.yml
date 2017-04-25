@@ -1,0 +1,21 @@
+---
+# File: tasks/main.yml - Main tasks for nomad
+- name: Install specified packages  
+  include: install.yml
+
+- name: Directories
+  file: "dest={{ item }} state=directory owner=root group=root"
+  with_items:
+    - /opt/nomad
+    - /var/nomad
+    - /var/run/nomad
+    - /etc/nomad/jobs
+
+- name: Server configuration
+  template: src=server.hcl.j2 dest={{ nomad_config_dir }}/server.hcl
+
+- name: SYSV init script
+  template: src=nomad_upstart.j2 dest=/etc/init/nomad.conf owner=root group=root mode=755
+
+- name: Start Nomad
+  command: start nomad
