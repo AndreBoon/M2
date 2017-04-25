@@ -2,9 +2,9 @@
 # File: defaults/main.yml - Main default variables for nomad
 
 nomad_version: "{{ lookup('env','NOMAD_VERSION') | default('0.5.3', true) }}"
-nomad_server_count: "1"
+nomad_server_count: "2"
 nomad_server: true
-nomad_client: true
+nomad_client: false 
 nomad_checksum_file_url: "https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version}}_SHA256SUMS"
 nomad_zip_url: "https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version }}_linux_amd64.zip"
 nomad_zip_sha256: "0cdb5dd95c918c6237dddeafe2e9d2049558fea79ed43eacdfcd247d5b093d67"
@@ -19,7 +19,8 @@ nomad_datacenter: "dc1"
 nomad_log_level: "INFO"
 nomad_syslog_enable: "true"
 nomad_iface: "eth0"
-nomad_advertise_address: "{{nomad_servers | intersect(ansible_all_ipv4_addresses) | first | default('127.0.0.1')}}" 
+#nomad_advertise_address: "{{nomad_servers | intersect(ansible_all_ipv4_addresses) | first | default('127.0.0.1')}}"
+nomad_advertise_address: "{{ ansible_eth0.ipv4.address }}"
 nomad_bind_address: "0.0.0.0"
 nomad_docker_enable: "{{ lookup('env','NOMAD_DOCKER_ENABLE') | default('false', true) }}"
 nomad_apt_key_url: "hkp://p80.pool.sks-keyservers.net:80"

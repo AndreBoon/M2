@@ -15,7 +15,7 @@
   template: src=server.hcl.j2 dest={{ nomad_config_dir }}/server.hcl
 
 - name: SYSV init script
-  template: src=nomad_upstart.j2 dest=/etc/init/nomad.conf owner=root group=root mode=755
+  template: src=nomad.service.j2 dest=/etc/systemd/system/nomad.service owner=root group=root mode=755
 
 - name: Start Nomad
-  command: start nomad
+  command: service nomad start
