@@ -32,6 +32,11 @@
     state: started
     enabled: yes
 
+- name: Reconstruct consul client config, docker specific
+  template:
+    src: consul_client.json.j2
+    dest: /etc/consul/client.json
+
 - name: Register Docker service in Consul
   copy: src=docker.json dest=/etc/consul owner=root group=root mode=0644
 

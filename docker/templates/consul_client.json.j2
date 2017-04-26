@@ -1,0 +1,12 @@
+{
+  "server": false,
+  "ui": true,
+  "data_dir": "/opt/consul/data",
+  "client_addr": "0.0.0.0",
+  "advertise_addr": "{{ ansible_eth0.ipv4.address }}",
+
+  "retry_join_ec2": {
+    "tag_key": "{{ ec2_tag_key }}",
+    "tag_value": "{{ ec2_tag_value }}"
+  }
+}
