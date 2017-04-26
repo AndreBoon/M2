@@ -4,7 +4,7 @@
     "enableTagOverride": false,
     "checks": [
       {
-        "script": "/etc/consul/scripts/docker.sh",
+        "script": "/etc/consul/docker.sh",
         "interval": "10s"
       }
     ]
