@@ -31,3 +31,17 @@
     name: dnsmasq
     state: started
     enabled: yes
+
+- name: Register Docker service in Consul
+  copy: src=docker.json dest=/etc/consul owner=root group=root mode=0644
+
+- name: Add Docker Health check in Consul
+  copy: src=docker.sh dest=/etc/consul owner=root group=root mode=0744
+  notify:
+    - Restart consul 
+
+- name: make sure consul is running
+  service:
+    name: consul
+    state: started
+    enabled: yes

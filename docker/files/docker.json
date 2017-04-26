@@ -1,0 +1,12 @@
+{
+  "service": {
+    "name": "docker",
+    "enableTagOverride": false,
+    "checks": [
+      {
+        "script": "/etc/consul/scripts/docker.sh",
+        "interval": "10s"
+      }
+    ]
+  }
+}
