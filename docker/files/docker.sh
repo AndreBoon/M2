@@ -1,12 +1,10 @@
 #/bin/sh
-SERVICE=docker
 
-ps ax | grep -v grep | grep -v $0 | grep $SERVICE > /dev/null
-if [ $? -eq 0 ]
+if service docker status | grep "active (running)" > /dev/null
 then
-    echo "$SERVICE service running, everything is fine"
+    echo "service running, everything is fine"
     exit 0
 else
-    echo "$SERVICE is not running"
+    echo "is not running"
     exit 2
 fi
