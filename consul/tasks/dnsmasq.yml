@@ -1,0 +1,23 @@
+---
+# File: dnsmasq.yml - Dnsmasq tasks for Consul
+
+- name: Install Dnsmasq package
+  apt:
+    name: dnsmasq
+    state: present
+  tags: dnsmasq, installation
+
+- name: Stop Dnsmasq service
+  service:
+    name: dnsmasq
+    state: stopped
+
+- name: Create Dnsmasq configuration
+  copy:
+    src: ../files/dnsmasq-10-consul
+    dest: /etc/dnsmasq.d/10-consul
+    owner: root
+    group: root
+    mode: 0644
+  notify: start dnsmasq
+  tags: dnsmasq

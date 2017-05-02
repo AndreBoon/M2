@@ -1,0 +1,41 @@
+---
+# File: main.yml - Main tasks for Consul
+
+- name: Include directory settings
+  include: dirs.yml
+
+- name: Check for existing Consul binary
+  stat:
+    path: "{{ consul_binary }}"
+  register: consul_binary_installed
+
+- name: Install OS packages and consul - locally
+  include: install.yml
+  when:
+    - not consul_binary_installed.stat.exists
+    - not consul_install_remotely
+
+- name: Create Consul configuration
+  include: config.yml
+
+  - name: Create systemd script
+    template:
+      src: consul_systemd.service.j2
+      dest: /lib/systemd/system/consul.service
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: Start Consul
+    service:
+      name: consul
+      state: started
+      enabled: yes
+
+  - name: Check Consul HTTP API
+    wait_for:
+      delay: 15
+      port: 8500
+
+  - include: ../tasks/dnsmasq.yml
+    when: consul_dnsmasq_enable

@@ -1,0 +1,13 @@
+---
+# File: config.yml - Consul configuration tasks
+
+- name: Create client configuration
+  template:
+    src: config_client.json.j2
+    dest: "{{ item.dest }}"
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group}}"
+  with_items:
+    - dest: "{{ consul_config_path }}/client.json"
+  notify:
+    - restart consul
