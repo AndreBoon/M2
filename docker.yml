@@ -1,7 +1,6 @@
 - hosts: localhost 
   roles:
   - role: consul
-    consul_dnsmasq_enable: false
   - role: docker
   - role: nomad
     nomad_server: false
