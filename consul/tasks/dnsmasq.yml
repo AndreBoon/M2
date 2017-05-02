@@ -13,9 +13,9 @@
     state: stopped
 
 - name: Create Dnsmasq configuration
-  copy:
-    src: ../files/dnsmasq-10-consul
-    dest: /etc/dnsmasq.d/10-consul
+  template:
+    src: consul.j2
+    dest: /etc/dnsmasq.d/consul
     owner: root
     group: root
     mode: 0644
