@@ -1,13 +1,23 @@
 ---
 # File: install.yml - package installation tasks for Consul
 
-- name: Install OS packages
+- name: Install Debian packages
   package:
     name: "{{ item }}"
     state: present
   with_items: 
     - git
     - unzip
+  when: ansible_os_family == "Debian"
+
+- name: Install RedHat packages
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - git
+    - unzip
+  when: ansible_os_family == "RedHat"
 
 - name: Read package checksum file
   local_action: stat path="{{ role_path }}/files/consul_{{ consul_version }}_SHA256SUMS"

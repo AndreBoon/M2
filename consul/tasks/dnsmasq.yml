@@ -1,10 +1,18 @@
 ---
 # File: dnsmasq.yml - Dnsmasq tasks for Consul
 
-- name: Install Dnsmasq package
+- name: Install Dnsmasq Debian
   apt:
     name: dnsmasq
     state: present
+  when: ansible_os_family == "Debian"
+  tags: dnsmasq, installation
+
+- name: Install Dnsmasq RedHat
+  yum:
+    name: dnsmasq
+    state: present
+  when: ansible_os_family == "RedHat"
   tags: dnsmasq, installation
 
 - name: Stop Dnsmasq service
