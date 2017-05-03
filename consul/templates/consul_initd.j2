@@ -5,7 +5,7 @@
 # chkconfig:   2345 95 95
 # description: Consul is a tool for service discovery and configuration
 # processname: consul
-# config: /etc/consul.conf
+# config: /etc/consul/client.json
 # pidfile: /var/run/consul.pid
 
 ### BEGIN INIT INFO
@@ -25,7 +25,7 @@
 
 prog="consul"
 user="root"
-exec="/usr/local/bin/$prog"
+exec="/usr/local/sbin/$prog"
 pidfile="/var/run/$prog.pid"
 lockfile="/var/lock/subsys/$prog"
 logfile="/var/log/consul/$prog"
