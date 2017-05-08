@@ -10,4 +10,5 @@
   with_items:
     - dest: "{{ consul_config_path }}/client.json"
   notify:
-    - restart consul
+    - stop consul
+    - start consul
