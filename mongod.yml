@@ -1,0 +1,23 @@
+- hosts: localhost 
+  roles:
+  - role: consul 
+
+- hosts: localhost
+  tasks:
+  - name: Consul service registration 
+    get_url:
+      url: https://s3.eu-central-1.amazonaws.com/anva-m2/mongod/mongo.json 
+      dest: /etc/consul/mongo.json
+      mode: 0644
+
+  - name: Determine master.sh
+    get_url:
+      url: https://s3.eu-central-1.amazonaws.com/anva-m2/mongod/mongomaster.sh
+      dest: /etc/consul/mongomaster.sh
+      mode: 0744
+
+  - name: reload consul
+    service:
+      name: consul
+      enabled: yes
+      state: reloaded
