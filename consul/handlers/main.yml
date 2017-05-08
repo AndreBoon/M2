@@ -18,6 +18,12 @@
     enabled: yes
     state: stopped
 
+- name: reload consul
+  service:
+    name: consul
+    enabled: yes
+    state: reloaded
+
 - name: restart dnsmasq
   service:
     name: dnsmasq
