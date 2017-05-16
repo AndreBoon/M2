@@ -3,6 +3,7 @@
   "ui": true,
   "data_dir": "/opt/consul/data",
   "client_addr": "0.0.0.0",
+  "encrypt": "{{ encrypt_key }}",
   "advertise_addr": "{{ ansible_eth0.ipv4.address }}",
 
   "retry_join_ec2": {
