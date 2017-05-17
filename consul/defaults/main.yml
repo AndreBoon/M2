@@ -14,9 +14,16 @@ consul_checksum_file_url: "https://releases.hashicorp.com/consul/{{ consul_versi
 ### Paths
 consul_bin_path: "/usr/local/bin"
 consul_config_path: "/etc/consul"
+consul_ssl_path: "/etc/consul/ssl"
 consul_data_path: "/var/consul"
 consul_log_path: "/var/log/consul"
 consul_run_path: "/var/run/consul"
+
+### SSL 
+consul_ssl_url: "https://s3.eu-central-1.amazonaws.com/anva-m2/consul/cert/consulssl.zip"
+consul_ca_file: "/etc/consul/ssl/ca.cert"
+consul_cert_file: "/etc/consul/ssl/consul.cert"
+consul_key_file: "/etc/consul/ssl/consul.key"
 
 ### System user and group
 consul_manage_user: yes

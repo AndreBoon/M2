@@ -69,6 +69,27 @@
     mode: 0755
   tags: installation
 
+- name: Download Consul SSL package
+  local_action: get_url url="{{ consul_ssl_url }}" dest="{{ role_path }}/files/consulssl.zip"
+  become: no
+  run_once: true
+  tags: installation
+
+- name: Unarchive Consul SSL package
+  local_action: unarchive src="{{ role_path }}/files/consulssl.zip" dest="{{ role_path }}/files/ssl" 
+  become: no
+  run_once: true
+  tags: installation
+
+- name: Install Consul SSL
+  copy:
+    src: "{{ role_path }}/files/ssl/"
+    dest: "{{ consul_ssl_path }}"
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+    mode: 0600
+  tags: installation
+
 - name: Cleanup
   local_action: file path="{{ item }}" state="absent"
   become: no
