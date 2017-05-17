@@ -5,7 +5,7 @@
 consul_debug: no
 
 ### Package
-consul_version: "0.8.0"
+consul_version: "0.8.3"
 consul_pkg: "consul_{{ consul_version }}_linux_amd64.zip"
 consul_os: "linux"
 consul_zip_url: "https://releases.hashicorp.com/consul/{{ consul_version }}/consul_{{ consul_version }}_linux_amd64.zip"
