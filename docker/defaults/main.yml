@@ -2,6 +2,11 @@
 docker:
   opts: "--bip 172.17.0.1/16 --dns 172.17.0.1"
 
+### SSL
+consul_ca_file: "/etc/consul/ssl/ca.cert"
+consul_cert_file: "/etc/consul/ssl/consul.cert"
+consul_key_file: "/etc/consul/ssl/consul.key"
+
 consul_domain: consul
 ec2_tag_key: ConsulServerCluster
 ec2_tag_value: consul-server-cluster
