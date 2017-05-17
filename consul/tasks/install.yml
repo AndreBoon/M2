@@ -76,23 +76,14 @@
   tags: installation
 
 - name: Unarchive Consul SSL package
-  local_action: unarchive src="{{ role_path }}/files/consulssl.zip" dest="{{ role_path }}/files/ssl" 
+  local_action: unarchive src="{{ role_path }}/files/consulssl.zip" dest="{{ consul_ssl_path }}" owner="{{ consul_user }}" group="{{ consul_group }}" mode=0600  
   become: no
   run_once: true
-  tags: installation
-
-- name: Install Consul SSL
-  copy:
-    src: "{{ role_path }}/files/ssl/"
-    dest: "{{ consul_ssl_path }}"
-    owner: "{{ consul_user }}"
-    group: "{{ consul_group }}"
-    mode: 0600
   tags: installation
 
 - name: Cleanup
   local_action: file path="{{ item }}" state="absent"
   become: no
-  with_fileglob: "{{ role_path }}/files/consul"
+  with_fileglob: "{{ role_path }}/files/*"
   run_once: true
   tags: installation
