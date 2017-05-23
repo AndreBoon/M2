@@ -5,4 +5,4 @@
   - role: nomad
     nomad_server: false
     nomad_client: true
-    
+  - role: filebeat    
