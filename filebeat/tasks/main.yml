@@ -1,6 +1,6 @@
 ---
 - name: Install filebeat
-  shell: wget -qO- https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-{{filebeat_version}}.deb 
+  shell: curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-{{filebeat_version}}.deb 
   shell: dpkg -i filebeat-{{filebeat_version}}.deb
 
 - name: Copy configuration
