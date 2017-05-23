@@ -1,0 +1,12 @@
+---
+- name: Install filebeat
+  shell: wget -qO- https://artifacts.elastic.co/downloads/beats/filebeat/{{filebeat.version}}.rpm | rpm -vi {{filebeat-version}}.rpm
+
+- name: Register Docker service in Consul
+  copy: src=filebeat.yml dest=/etc/filebeat/filebeat.yml owner=root group=root mode=0644
+
+- name: make sure filebeat is running
+  service:
+    name: filebeat
+    state: started
+    enabled: yes
