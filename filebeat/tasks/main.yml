@@ -1,7 +1,12 @@
 ---
+- name: Download filebeat
+  get_url:
+    url: "https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-{{filebeat_version}}.deb"
+    dest: /tmp/filebeat-{{filebeat_version}}.deb
+
 - name: Install filebeat
-  shell: curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-{{filebeat_version}}.deb 
-  shell: dpkg -i filebeat-{{filebeat_version}}.deb
+  apt: deb="/tmp/filebeat-{{filebeat_version}}.deb"
+  sudo: true
 
 - name: Copy configuration
   copy: src=filebeat.yml dest=/etc/filebeat/filebeat.yml owner=root group=root mode=0644
