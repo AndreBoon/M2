@@ -4,7 +4,7 @@
   include: install.yml
 
 - name: Directories
-  file: "dest={{ item }} state=directory owner=root group=root"
+  file: "dest={{ item }} state=directory owner=ubuntu group=root"
   with_items:
     - /opt/nomad
     - /var/nomad
