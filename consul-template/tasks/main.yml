@@ -1,0 +1,43 @@
+---
+- name: update apt
+  apt: >
+    update_cache=yes
+    cache_valid_time=3600
+  when: ansible_os_family == "Debian"
+
+- name: install deps (Debian)
+  apt: >
+    pkg={{item}}
+    state=installed
+  with_items:
+    - unzip
+  when: ansible_os_family == "Debian"
+
+- name: install deps (RedHat)
+  yum: >
+    pkg={{ item }}
+    state=installed
+  with_items:
+    - unzip
+  when: ansible_os_family == "RedHat"
+
+- name: download consul-template binary
+  get_url:
+    url: "{{ consul_template_download_url }}"
+    dest: "/tmp"
+
+- name: unzip the downloaded package
+  unarchive:
+    src: "/tmp/{{ consul_template_archive_file }}"
+    dest: "{{ consul_template_home }}"
+    owner: "root"
+    group: "root"
+    copy: False
+
+- name: Update consul-template permissions
+  file:
+    path: "{{ consul_template_home }}/{{ consul_template_binary }}"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+
